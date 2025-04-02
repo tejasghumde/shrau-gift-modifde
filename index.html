@@ -17,32 +17,85 @@
             font-size: 3rem;
             text-align: center;
             transition: all 1s ease-in-out;
+            overflow: hidden;
         }
         .message {
             display: none;
             color: red;
+            position: relative;
+            z-index: 2;
         }
         .message img {
-            width: 200px; /* Adjust size */
+            width: 200px;
             height: auto;
             margin-top: 20px;
-            border-radius: 15px; /* Soft rounded corners */
+            border-radius: 15px;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .petal {
+            position: absolute;
+            top: -50px;
+            width: 30px;
+            height: 30px;
+            background: pink;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        .button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border: none;
+            background-color: #ff6699;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .button:hover {
+            background-color: #ff3366;
         }
     </style>
     <script>
-        setTimeout(() => {
-            document.body.style.backgroundColor = '#ffe6f2'; // Soft pink background
+        function showMessage() {
+            document.body.style.backgroundColor = '#ffe6f2';
             document.querySelector('.message').style.display = 'block';
-        }, 500); // Show message after 0.5 seconds
+            document.querySelector('.button').style.display = 'none';
+            playMusic();
+            createPetals();
+        }
+        
+        function playMusic() {
+            let audio = new Audio('love.mp3');
+            audio.loop = true;
+            audio.play();
+        }
+        
+        function createPetals() {
+            for (let i = 0; i < 30; i++) {
+                let petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.style.left = Math.random() * 100 + "vw";
+                petal.style.animationDuration = (3 + Math.random() * 3) + "s";
+                document.body.appendChild(petal);
+            }
+        }
+        
+   
+        
     </script>
 </head>
 <body>
+    <button class="button" onclick="showMessage()">Open the Letter 💌</button>
     <div class="message">
         🌸💖 I love u Shrauu 💖🌸<br>
         🌷🌼🌺 Forever & Always 🌺🌼🌷<br>
-        <!-- Add your images below -->
-        <img src="shrau.jpg" alt="bayko photo">
-    
+        <img src="shrau.jpg" alt="Love Image">
     </div>
+    
 </body>
 </html>
+
